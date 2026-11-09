@@ -9,6 +9,7 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run",
+    "icons": "electron scripts/build-icons.cjs",
     "electron:start": "electron electron/main.cjs",
     "electron:dev": "concurrently -k \"vite\" \"wait-on tcp:5173 && electron electron/main.cjs\"",
     "electron:pack": "npm run build && electron-builder --dir",
@@ -19,7 +20,8 @@
     "productName": "MacroRadar",
     "copyright": "Copyright © 2026 MacroRadar",
     "directories": {
-      "output": "release"
+      "output": "release",
+      "buildResources": "build"
     },
     "files": [
       "dist/**/*",
@@ -28,9 +30,19 @@
     ],
     "win": {
       "target": [
-        "dir",
+        "nsis",
         "portable"
-      ]
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "MacroRadar",
+      "uninstallDisplayName": "MacroRadar Terminal"
     }
   },
   "dependencies": {

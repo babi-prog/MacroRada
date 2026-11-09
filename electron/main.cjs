@@ -8,6 +8,10 @@ let mainWindow = null;
 const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged;
 
 function createWindow() {
+  const appIcon = process.platform === 'win32'
+    ? path.join(__dirname, 'icon.ico')
+    : path.join(__dirname, 'icon.png');
+
   mainWindow = new BrowserWindow({
     width: 1440,
     height: 900,
@@ -15,6 +19,7 @@ function createWindow() {
     minHeight: 720,
     backgroundColor: '#09090b',
     title: 'MacroRadar | Institutional Volatility & Macroeconomic Terminal',
+    icon: appIcon,
     autoHideMenuBar: true,
     show: false, // Show when ready-to-show to prevent white flash
     webPreferences: {
@@ -121,6 +126,7 @@ function setupIpcHandlers() {
         const notif = new Notification({
           title: title || 'MacroRadar Alert',
           body: body || 'Macroeconomic catalyst imminent',
+          icon: path.join(__dirname, 'icon.png'),
           urgency: 'critical',
         });
         notif.show();

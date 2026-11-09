@@ -32,7 +32,8 @@ dist-ssr/
 dist-electron/
 release/
 out/
-build/
+build/*
+!build/icon.*
 
 # Environment files
 .env
